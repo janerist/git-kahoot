@@ -37,3 +37,4 @@ def cli(directory, since, until, count, username, password):
         click.echo(f'Only including commits up to {until}')
     click.echo(f'Number of questions: {count}')
     click.echo(f'Kahoot user name: {username}')
+    click.echo(f'Kahoot access token: {access_token}')
