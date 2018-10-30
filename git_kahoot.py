@@ -15,9 +15,12 @@ def validate_git_repo(ctx, param, value):
 
 
 @click.command()
-@click.option('-d', '--directory', default='.', help='Path to git repository (default: current directory).',
+@click.option('-d', '--directory', default='.', help='path to git repository (default: current directory)',
               type=click.Path(exists=True, file_okay=False), callback=validate_git_repo
               )
-def cli(directory):
+@click.option('-n', '--count', default=20, help='number of questions (default: 20, max: 100)',
+              type=click.IntRange(min=1, max=100))
+def cli(directory, count):
     """Generates Kahoot quiz from commits in a git repository."""
     click.echo(f'Using git repository {directory}')
+    click.echo(f'Number of questions: {count}')
