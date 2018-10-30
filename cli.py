@@ -4,11 +4,13 @@ import os
 import kahoot
 import git
 
+
 def validate_git_repo(ctx, param, value):
     try:
         return git.get_git_dir(value)
     except git.GitError as err:
         raise click.BadParameter(err)
+
 
 @click.command()
 @click.option('-d', '--directory', default='.', help='path to git repository (default: current directory)',
@@ -25,10 +27,10 @@ def cli(directory, since, until, count, username, password):
     if since is not None and until is not None and since >= until:
         raise click.BadOptionUsage('until', '--until must be after --since')
 
-    try:
-        access_token = kahoot.authenticate(username, password)
-    except kahoot.KahootError as err:
-        raise click.UsageError(err)
+    #try:
+    #    access_token = kahoot.authenticate(username, password)
+    #except kahoot.KahootError as err:
+    #    raise click.UsageError(err)
 
     click.echo(f'Using git repository {directory}')
     if (since is not None):
@@ -37,4 +39,10 @@ def cli(directory, since, until, count, username, password):
         click.echo(f'Only including commits up to {until}')
     click.echo(f'Number of questions: {count}')
     click.echo(f'Kahoot user name: {username}')
-    click.echo(f'Kahoot access token: {access_token}')
+
+    authors = git.get_authors(directory)
+    click.echo(authors)
+
+    # commits = git.get_random_commits(directory, since, until, count)
+
+
