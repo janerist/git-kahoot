@@ -3,12 +3,13 @@ from setuptools import setup
 setup(
     name='git-kahoot',
     version='0.1',
-    py_modules=['git_kahoot'],
+    py_modules=['cli'],
     install_requires=[
-        'Click'
+        'Click',
+        'requests'
     ],
     entry_points='''
         [console_scripts]
-        git-kahoot=git_kahoot:cli
+        git-kahoot=cli:cli
     ''',
 )
