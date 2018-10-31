@@ -23,7 +23,7 @@ def get_git_dir(directory):
         return os.path.join(os.path.abspath(directory), git_dir.strip())
 
     except subprocess.CalledProcessError:
-        raise GitError(f'Directory "{directory}" not a git repository.')
+        raise GitError(f'Directory "{os.path.abspath(directory)}" not a git repository.')
 
 
 def get_authors(directory):
@@ -64,7 +64,3 @@ def get_random_commits(directory, since, until, count):
         commits.append((fields[0].strip('[\n\"]'), fields[1], fields[2]))
 
     return commits
-
-    
-
-

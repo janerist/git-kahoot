@@ -1,10 +1,9 @@
 import click
-import subprocess
-import os
 import kahoot
 import git
 import random
 from itertools import islice, cycle
+
 
 def validate_git_repo(ctx, param, value):
     try:
@@ -22,7 +21,8 @@ def validate_git_repo(ctx, param, value):
               type=click.IntRange(min=1, max=100))
 @click.option('-u', '--username', required=True, prompt='Kahoot user name', help='Kahoot user name')
 @click.option('-p', '--password', required=True, prompt='Kahoot password', hide_input=True, help='Kahoot password')
-@click.option('-t', '--title', default='Git Commiter Quiz', help='title of the generated quiz')
+@click.option('-t', '--title', default='Git Commiter Quiz',
+              help='title of the generated quiz (default: "Git Commiter Quiz"')
 def cli(directory, since, until, count, username, password, title):
     """Generates Kahoot quiz from commits in a git repository."""
 
@@ -35,9 +35,9 @@ def cli(directory, since, until, count, username, password, title):
         raise click.UsageError(err)
 
     click.echo(f'Using git repository {directory}')
-    if (since is not None):
+    if since is not None:
         click.echo(f'Only including commits since {since}')
-    if (until is not None):
+    if until is not None:
         click.echo(f'Only including commits up to {until}')
     click.echo(f'Number of questions: {count}')
 
@@ -48,8 +48,6 @@ def cli(directory, since, until, count, username, password, title):
 
     click.echo('Creating quiz...')
 
-    questions = [create_question(commit, authors) for commit in commits] 
-
     quiz = {
         'title': title,
         'description': 'Made using git-kahoot',
@@ -58,7 +56,7 @@ def cli(directory, since, until, count, username, password, title):
         'language': 'English',
         'audience': 'Social',
         'coverMetadata': {},
-        'questions': questions
+        'questions': [create_question(commit, authors) for commit in commits]
     }
 
     quiz_id = kahoot.create_quiz(quiz, access_token)
@@ -68,13 +66,13 @@ def cli(directory, since, until, count, username, password, title):
 
 def create_question(commit, authors):
     author, date, message = commit
-    choices = [] 
+    choices = []
     if len(authors) < 4:
         choices.extend(list(islice(cycle(authors), None, 4)))
     else:
         choices.extend(random.sample(authors, 4))
 
-    if not author in choices:
+    if author not in choices:
         choices.pop()
         choices.append(author)
 
