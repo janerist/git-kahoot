@@ -41,8 +41,8 @@ def cli(directory, since, until, count, username, password):
     click.echo(f'Kahoot user name: {username}')
 
     authors = git.get_authors(directory)
-    click.echo(authors)
 
-    # commits = git.get_random_commits(directory, since, until, count)
+    commits = git.get_random_commits(directory, since, until, count)
+    click.echo(commits)
 
 

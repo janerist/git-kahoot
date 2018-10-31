@@ -1,5 +1,7 @@
 import subprocess
 import os
+import random
+from itertools import islice, cycle
 
 
 class GitError(Exception):
@@ -35,4 +37,34 @@ def get_authors(directory):
 
 
 def get_random_commits(directory, since, until, count):
-    pass
+    commit_delimiter = 'XXXCOMMIT'
+    field_delimiter = '|||'
+    commit_format = field_delimiter.join(['%an', '%ar', '%B'])
+    
+    args = ['git', 'log', '--no-merges', f'--pretty="{commit_format}{commit_delimiter}"']
+    if since is not None:
+        args.append(f'--since={since}')
+    if until is not None:
+        args.append(f'--until={until}')
+
+    output = subprocess.check_output(
+        args,
+        universal_newlines=True,
+        cwd=directory
+    )
+
+    raw_commits = output.split(commit_delimiter)[:-1]
+    if len(raw_commits) < count:
+        raw_commits = list(islice(cycle(raw_commits), None, count))
+
+    random_commits = random.sample(raw_commits, count)
+    commits = []
+    for commit in random_commits:
+        fields = commit.strip().split(field_delimiter)
+        commits.append((fields[0].strip('[\n\"]'), fields[1], fields[2]))
+
+    return commits
+
+    
+
+
