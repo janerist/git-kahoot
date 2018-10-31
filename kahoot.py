@@ -16,3 +16,13 @@ def authenticate(username, password):
         raise KahootError('Authentication failed. Did you type your password correctly?') 
 
     return response.json()['access_token']
+
+
+def create_quiz(quiz, access_token):
+    headers = {'Authorization': f'Bearer {access_token}'}
+    response = requests.post(f'{KAHOOT_URL}/kahoots', json=quiz, headers=headers)
+
+    if response.status_code != requests.codes.ok:
+        raise KahootError('Failed to create quiz. The response was: ' + response.json()) 
+
+    return response.json()['uuid']
