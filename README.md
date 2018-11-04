@@ -16,7 +16,8 @@ Usage: git-kahoot [OPTIONS]
 
 Options:
   -d, --directory DIRECTORY       path to git repository (default: current
-                                  directory)
+                                  directory) Specify this option multiple
+                                  times to use multiple repositories.
   --since [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]
                                   only include commits since this date
   --until [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]
@@ -31,27 +32,28 @@ Options:
 
 ## Examples
 
+Specify path to git repository using the -d option. Omitting this options will try to use the current directory.
 ```
-# Specify path to git repository using the -d option. Omitting this options will try to use the current directory.
 git-kahoot --directory /my/repo
-
-# or
-cd /my/repo
-git-kahoot 
 ```
 
+Multiple git repositories can be specfied. Commits will be selected in a round-robin fashion.
 ```
-# Only include commits between a date range
+git-kahoot --directory /my/repo --directory /my/second-repo
+```
+
+Only include commits between a date range.
+```
 git-kahoot --directory /my/repo --since 2015-01-01 --until 2018-01-01
 ```
 
+Set the title of the generated quiz and the number of questions.
 ```
-# Set the title of the generated quiz and the number of questions
 git-kahoot --title "My glorious quiz" --count 10
 ```
 
+Specify credentials for your Kahoot acoount. You will be prompted for these credentials if you omit them.
 ```
-# Specify credentials for your Kahoot acoount. You will be prompted for these credentials if you omit them.
 git-kahoot --username AzureDiamond --password hunter2
 ```
 
