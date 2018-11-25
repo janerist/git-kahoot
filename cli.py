@@ -20,7 +20,7 @@ def validate_git_repo(ctx, param, repos):
     'repos',
     default='.',
     multiple=True,
-    help='path to git repository (default: current directory) Specify this option multiple times to use multiple repositories.',
+    help='path to git repository (default: current directory). Specify this option multiple times to use multiple repositories.',
     type=click.Path(exists=True, file_okay=False),
     callback=validate_git_repo
 )
@@ -60,7 +60,7 @@ def validate_git_repo(ctx, param, repos):
     '-t',
     '--title',
     default='Git Commiter Quiz',
-    help='title of the generated quiz (default: "Git Commiter Quiz"'
+    help='title of the generated quiz (default: "Git Commiter Quiz")'
 )
 def cli(repos, since, until, count, username, password, title):
     """Generates Kahoot quiz from commits in a git repository."""
