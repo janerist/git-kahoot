@@ -3,7 +3,7 @@ Generate Kahoot quiz from commits in a git repository.
 
 ## Installation
 
-Requires Python 3.6+.
+Requires Python 3.
 ```
 pip install git-kahoot
 ```
@@ -12,7 +12,7 @@ pip install git-kahoot
 ```
 Usage: git-kahoot [OPTIONS]
 
-  Generates Kahoot quiz from commits in a git repository.
+  Generate a Kahoot quiz from commits in a git repository.
 
 Options:
   -d, --directory DIRECTORY       path to git repository (default: current
@@ -52,19 +52,19 @@ Set the title of the generated quiz and the number of questions.
 git-kahoot --title "My glorious quiz" --count 10
 ```
 
-Specify credentials for your Kahoot acoount. You will be prompted for these credentials if you omit them.
+Specify credentials for your Kahoot account. You will be prompted for these credentials if you omit them.
 ```
 git-kahoot --username AzureDiamond --password hunter2
 ```
 
 ## Development setup
 
-Assuming Python 3.6+ is installed, clone the repository, set up a virtualenv and install the package as editable. 
+Assuming Python 3, pip and virtualenv is installed, clone the repository, set up a virtualenv and install the package as editable. 
 
 ```
 git clone git@github.com:janerist/git-kahoot.git
 cd git-kahoot
-virtualenv venv
+virtualenv -p python3 venv
 . venv/bin/activate (Windows: venv/Scripts/activate)
 pip install --editable .
 git-kahoot
