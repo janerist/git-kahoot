@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setup(
     name='git-kahoot',
-    version='0.2',
+    version='0.2.1',
     author='Jan-Erik Strøm',
     author_email='jan.erik.strom@gmail.com',
-    description='Generates Kahoot quiz from commits in a git repository',
+    description='Generate a Kahoot quiz from commits in a git repository',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/janerist/git-kahoot',

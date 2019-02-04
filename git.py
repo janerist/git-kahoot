@@ -23,7 +23,7 @@ def get_git_dir(directory):
         return os.path.join(os.path.abspath(directory), git_dir.strip())
 
     except subprocess.CalledProcessError:
-        raise GitError(f'Directory "{os.path.abspath(directory)}" not a git repository.')
+        raise GitError('Directory "{}" not a git repository.'.format(os.path.abspath(directory)))
 
 
 def get_authors(directory):
@@ -41,11 +41,11 @@ def get_random_commits(directory, since, until, count):
     field_delimiter = '|||'
     commit_format = field_delimiter.join(['%an', '%ar', '%B'])
     
-    args = ['git', 'log', '--no-merges', f'--pretty="{commit_format}{commit_delimiter}"']
+    args = ['git', 'log', '--no-merges', '--pretty="{}{}"'.format(commit_format, commit_delimiter)]
     if since is not None:
-        args.append(f'--since={since}')
+        args.append('--since=' + since)
     if until is not None:
-        args.append(f'--until={until}')
+        args.append('--until=' + until)
 
     output = subprocess.check_output(
         args,

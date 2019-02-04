@@ -62,6 +62,7 @@ def validate_git_repo(ctx, param, repos):
     default='Git Commiter Quiz',
     help='title of the generated quiz (default: "Git Commiter Quiz")'
 )
+@click.version_option()
 def cli(repos, since, until, count, username, password, title):
     """Generates Kahoot quiz from commits in a git repository."""
 
@@ -74,12 +75,12 @@ def cli(repos, since, until, count, username, password, title):
         raise click.UsageError(err)
 
     for repo in repos:
-        click.echo(f'Using git repository {repo}')
+        click.echo('Using git repository {}'.format(repo))
     if since is not None:
-        click.echo(f'Only including commits since {since}')
+        click.echo('Only including commits since {}'.format(since))
     if until is not None:
-        click.echo(f'Only including commits up to {until}')
-    click.echo(f'Number of questions: {count}')
+        click.echo('Only including commits up to {}'.format(until))
+    click.echo('Number of questions: {}'.format(count))
 
     click.echo('Getting commits...')
 
@@ -107,7 +108,7 @@ def cli(repos, since, until, count, username, password, title):
 
     quiz_id = kahoot.create_quiz(quiz, access_token)
 
-    click.echo(f'Success! Your quiz is ready at: https://play.kahoot.it/#/?quizId={quiz_id}')
+    click.echo('Success! View your quiz at https://create.kahoot.it/details/{}.'.format(quiz_id))
 
 
 def create_question(repo_name, authors, commit):
@@ -124,8 +125,8 @@ def create_question(repo_name, authors, commit):
 
     random.shuffle(choices)
 
-    question = f'[{repo_name}] ' if repo_name else ''
-    question += f'({date}):\n{message}'
+    question = '[{}] '.format(repo_name) if repo_name else ''
+    question += '({date}):\n{message}'.format(date=date, message=message)
 
     return {
         'question': question,
