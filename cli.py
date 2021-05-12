@@ -18,7 +18,7 @@ def validate_git_repo(ctx, param, repos):
     '-d',
     '--directory',
     'repos',
-    default='.',
+    default=['.'],
     multiple=True,
     help='path to git repository (default: current directory). Specify this option multiple times to use multiple repositories.',
     type=click.Path(exists=True, file_okay=False),

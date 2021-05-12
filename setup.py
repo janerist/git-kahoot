@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='git-kahoot',
-    version='0.2.1',
+    version='0.2.2',
     author='Jan-Erik Strøm',
     author_email='jan.erik.strom@gmail.com',
     description='Generate a Kahoot quiz from commits in a git repository',
@@ -19,8 +19,8 @@ setup(
     ],
     py_modules=['cli', 'git', 'kahoot'],
     install_requires=[
-        'Click',
-        'requests'
+        'Click==8.0.0',
+        'requests==2.25.1'
     ],
     entry_points='''
         [console_scripts]
