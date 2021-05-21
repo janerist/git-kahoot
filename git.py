@@ -43,9 +43,9 @@ def get_random_commits(directory, since, until, count):
     
     args = ['git', 'log', '--no-merges', '--pretty="{}{}"'.format(commit_format, commit_delimiter)]
     if since is not None:
-        args.append('--since=' + since)
+        args.append('--since={}'.format(since))
     if until is not None:
-        args.append('--until=' + until)
+        args.append('--until={}'.format(until))
 
     output = subprocess.check_output(
         args,
