@@ -20,7 +20,7 @@ setup(
     py_modules=['cli', 'git', 'kahoot'],
     install_requires=[
         'Click==8.0.1',
-        'requests==2.25.1'
+        'requests==2.31.0'
     ],
     entry_points='''
         [console_scripts]
